@@ -17,4 +17,30 @@ public class InventoryManager : MonoBehaviour
         }
         return null;
     }
-}
+
+
+    //Implement a BinarySearchByID method that works only on a sorted list of items by ID. Sort the inventory by ID first and then perform the binary search.
+    public InventoryItem BinarySearchByID(int itemID, List<InventoryItem> inputList)
+    {
+        List<InventoryItem> sortedList = new List<InventoryItem>(inventoryItems);
+        sortedList = inputList.OrderBy(itemID => itemID.ID).ToList(); //sorts list by ID
+        int left = 0,right = sortedList.Length, middle = 0;
+
+        while( left >= right)
+        {
+            middle = (left + right) / 2;
+            if (sortedList[middle].ID == itemID)
+            {
+                return sortedList[middle];
+            }
+            else if (sortedList[middle].ID < itemID)
+            {
+                left = middle + 1;
+            }
+            else
+            {
+                right = middle - 1;
+            }
+        }
+        return null;
+    }
